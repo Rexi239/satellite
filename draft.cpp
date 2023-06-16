@@ -81,3 +81,46 @@ N - значимость детектирования (взять N=5, в дал
 
     return 0;
 }
+
+
+/* converted to python
+
+import numpy as np
+
+xlabel = []
+ylabel = []
+s1, s2 = input().split()
+x, y = 0, 0
+while True:
+    try:
+        x, y = map(float, input().split())
+        xlabel.append(x)
+        ylabel.append(y)
+    except:
+        break
+
+sum = np.sum(ylabel[:126])
+phase_zero = sum / (200 - 75 + 1)
+
+max_amplitude = phase_zero
+for i in range(125):
+    if ylabel[i] > max_amplitude:
+        max_amplitude = ylabel[i]
+
+burst_begin_time = 0
+for i in range(401):
+    if ylabel[i] > max_amplitude:
+        burst_begin_time = xlabel[i]
+
+N = 5
+burst_end_time = 0
+for i in range(400, int(burst_begin_time), -1):
+    if ylabel[i] > phase_zero:
+        N -= 1
+        if N == 0:
+            burst_end_time = xlabel[i]
+            break
+
+print(burst_begin_time, burst_end_time)
+
+*/

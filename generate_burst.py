@@ -78,7 +78,7 @@ def write(arr_time, arr_counts, file_name):
 
 def main():
 
-    # временной инервал
+    # временной инnервал
     t_i, t_f, = -200.0, +200.0 # секунды, с
  
     # шаг по времени
@@ -107,6 +107,43 @@ def main():
     file_name_png = 'burst.png'
     # write_png(arr_time, arr_counts, file_name_png)
 
+    # как считывать с файла?
+    # считаем с файла xlabel, ylabel
+
+    xlabel = []
+    ylabel = []
+    s1, s2 = input().split()
+    x, y = 0, 0
+
+    while True:
+        try:
+            x, y = map(float, input().split())
+            xlabel.append(x)
+            ylabel.append(y)
+        except:
+            break
+
+    sum = np.sum(ylabel[:126])
+    phase_zero = sum / (200 - 75 + 1)
+
+    max_amplitude = phase_zero
+    for i in range(125):
+        if ylabel[i] > max_amplitude:
+            max_amplitude = ylabel[i]
+
+    burst_begin_time = 0
+    for i in range(401):
+        if ylabel[i] > max_amplitude:
+            burst_begin_time = xlabel[i]
+
+    N = 5
+    burst_end_time = 0
+    for i in range(400, int(burst_begin_time), -1):
+        if ylabel[i] > phase_zero:
+            N -= 1
+            if N == 0:
+                burst_end_time = xlabel[i]
+                break
 
 
 main()
