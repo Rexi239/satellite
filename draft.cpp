@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -17,20 +18,28 @@ int main() {
     while (cin >> x) {
         cin >> x;
         cin >> y;
-        xlabel.pushback(x)
-        ylabel.pushback(y)
+        xlabel.push_back(x);
+        ylabel.push_back(y);
     }
 
     // определяем уровень фона
     double sum = 0;
-    for (int i = -200; i <= -75; ++i) {
+    for (int i = 0; i <= 125; ++i) {
         sum += ylabel[i];
 
     }
     double phase_zero = sum / (200 - 75 + 1);
 
+
+    /* Индексы:
+        -200 = 0
+        labelx (-200) = index (0)
+        index = labelx + 200
+    */
+
+
     double max_amplitude = phase_zero;
-    for (int i = -200; i < 75; ++i) {
+    for (int i = 0; i < 125; ++i) {
         if (ylabel[i] > max_amplitude) {
             max_amplitude = ylabel[i];
         }
@@ -39,7 +48,7 @@ int main() {
     // начало всплеска
 
     double burst_begin_time;
-    for (int i = -200; i <= 200; ++i) {
+    for (int i = 0; i <= 400; ++i) {
         if (ylabel[i] > max_amplitude) {
             burst_begin_time = xlabel[i];
         }
@@ -52,14 +61,23 @@ int main() {
 C_tot - полное число отсчётов на выбранном интервале,
 C_bg -  число отсчётов от фона на выбранном интервале,
 N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
-    
-    for (int i = -200; i <= 200; ++i) {
-        if () {
 
+    int N = 5;
+    double burst_end_time;
+    
+    for (int i = 400; i >= burst_begin_time; --i) {
+        int C_tot = i - burst_begin_time + 1;
+
+        for (int j = burst_begin_time; j <= i; ++j) {
+            int C_bg = i - j + 1;
+
+            if ((C_tot - C_bg) / sqrt(C_bg) > N) {
+                burst_end_time = xlabel[j];
+            }
         }
     }
 
-    cout << burst_begin_time << endl;
+    cout << burst_begin_time << endl << burst_end_time << endl;
 
     return 0;
 }
