@@ -26,7 +26,7 @@ int main() {
     // определяем уровень фона
     double sum = 0;
     for (int i = 0; i <= 125; ++i) {
-        sum += ylabel[i];
+        sum += arr_counts[i];
 
     }
     double phase_zero = sum / (200 - 75 + 1);
@@ -41,8 +41,8 @@ int main() {
 
     double max_amplitude = phase_zero;
     for (int i = 0; i < 125; ++i) {
-        if (ylabel[i] > max_amplitude) {
-            max_amplitude = ylabel[i];
+        if (arr_counts[i] > max_amplitude) {
+            max_amplitude = arr_counts[i];
         }
     }
 
@@ -50,18 +50,18 @@ int main() {
 
     double burst_begin_time;
     for (int i = 0; i <= 400; ++i) {
-        if (ylabel[i] > max_amplitude) {
-            burst_begin_time = xlabel[i];
+        if (arr_counts[i] > max_amplitude) {
+            burst_begin_time = arr_time[i];
         }
     }
 
     // весь всплеск
 
     /* Считать, что на заданном временном интервале есть значимое превышение над фоном
-если  (C_tot - C_bg) / sqrt(C_bg) > N, где 
-C_tot - полное число отсчётов на выбранном интервале,
-C_bg -  число отсчётов от фона на выбранном интервале,
-N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
+    если  (C_tot - C_bg) / sqrt(C_bg) > N, где 
+    C_tot - полное число отсчётов на выбранном интервале,
+    C_bg -  число отсчётов от фона на выбранном интервале,
+    N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
 
     int N = 5;
     double burst_end_time;
@@ -73,14 +73,12 @@ N - значимость детектирования (взять N=5, в дал
             int C_bg = i - j + 1;
 
             if ((C_tot - C_bg) / sqrt(C_bg) > N) {
-                burst_end_time = xlabel[j];
+                burst_end_time = arr_time[j];
             }
         }
     }
 
     cout << burst_begin_time << endl << burst_end_time << endl;
-
-    return 0;
 
     return 0;
 }
