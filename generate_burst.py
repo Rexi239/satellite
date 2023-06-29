@@ -22,6 +22,7 @@ import numpy as np
 from scipy.stats import poisson, norm
 
 import matplotlib as mpl
+
 mpl.use('Agg')
 
 import matplotlib.pyplot as plt
@@ -108,7 +109,13 @@ def main():
     # write_png(arr_time, arr_counts, file_name_png)
 
     # как считывать с файла?
+    # f = open('burst.txt', 'r')
     # считаем с файла xlabel, ylabel
+
+    # если пишем здась, читать не нужно, можно сразу arr_time, arr_counts
+    # можно cpp с чтением файла
+
+
 
     xlabel = []
     ylabel = []
