@@ -76,23 +76,32 @@ int main() {
     // начало всплеска
 
     double burst_begin_time = -9797.97;
+    int burst_begin_time_i = -1;
     for (int i = 0; i < arr_counts.size() - 2; ++i) {
         if (arr_counts[i] > med_amplitude && arr_counts[i+1] > med_amplitude && arr_counts[i+2] > med_amplitude) {
             burst_begin_time = arr_time[i];
+            burst_begin_time_i = i;
         }
     }
 
-    // весь всплеск
-
-    /* Считать, что на заданном временном интервале есть значимое превышение над фоном
-если  (C_tot - C_bg) / sqrt(C_bg) > N, где
-C_tot - полное число отсчётов на выбранном интервале,
-C_bg -  число отсчётов от фона на выбранном интервале,
-N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
-
+    //  конец всплеска
     int N = 5;
     double burst_end_time;
+    int burst_end_time_i = -1;
+    for (int i = burst_begin_time_i; i < arr_counts.size() - 2; ++i) {
+        if (arr_counts[i] < med_amplitude && arr_counts[i+1] < med_amplitude && arr_counts[i+2] < med_amplitude) {
+            burst_end_time = arr_time[i];
+            burst_end_time_i = i;
+        }
+    }
 
+    /* Считать, что на заданном временном интервале есть значимое превышение над фоном
+    если  (C_tot - C_bg) / sqrt(C_bg) > N, где
+    C_tot - полное число отсчётов на выбранном интервале,
+    C_bg -  число отсчётов от фона на выбранном интервале,
+    N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
+
+    /* // to be fixed
     for (int i = 400; i >= burst_begin_time; --i) {
         int C_tot = i - burst_begin_time + 1;
 
@@ -103,7 +112,7 @@ N - значимость детектирования (взять N=5, в дал
                 burst_end_time = arr_time[j];
             }
         }
-    }
+    } */
 
 	cerr << endl;
     cout << burst_begin_time << endl << burst_end_time << endl;
