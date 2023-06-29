@@ -51,20 +51,33 @@ int main() {
     */
 
     // определяем уровень фона - ok
-    double max_amplitude = phase_zero;
+
+    /* double max_amplitude = phase_zero;
     for (int i = 0; i < 125; ++i) {
         if (arr_counts[i] > max_amplitude) {
             max_amplitude = arr_counts[i];
         }
     }
+    cerr << max_amplitude << endl;
+    */
 
-    cout << max_amplitude << endl;
+    // med_amplitude
+    sum = 0;
+    counter = 0;
+    for (int i = 0; i <= 125; ++i) {
+        if (arr_counts[i] > phase_zero) {
+            sum += arr_counts[i];
+            counter++;
+        }
+    }
+    double med_amplitude = sum / counter;
+    cerr << med_amplitude << endl;
 
     // начало всплеска
 
     double burst_begin_time;
-    for (int i = 0; i <= 400; ++i) {
-        if (arr_counts[i] > max_amplitude) {
+    for (int i = 0; i < arr_counts.size() - 3; ++i) {
+        if (arr_counts[i] > med_amplitude && arr_counts[i+1] > med_amplitude && arr_counts[i+2] > med_amplitude && arr_counts[i+3] > med_amplitude) {
             burst_begin_time = arr_time[i];
         }
     }
