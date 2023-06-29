@@ -29,21 +29,6 @@ int main() {
         arr_counts.push_back(y);
     }
 
-    /*
-    while (cin >> x) {
-    	if (k % 2 == 0) {
-    		cin >> x;
-    		arr_time.push_back(x);
-    		k++;
-		}
-        else {
-	        cin >> x;
-	        arr_counts.push_back(x);
-	        k++;
-		}
-    }
-    */
-
     /* for (int i = 0; i < 125; ++i) {
     	cerr << arr_time[i] << "    " << arr_counts[i] << endl;
 	} */
@@ -58,7 +43,6 @@ int main() {
     double phase_zero = sum / counter;
 
     cerr << phase_zero << endl;
-
 
     /* индексы:
         -200 = 0
