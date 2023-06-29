@@ -1,12 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <cstdio>
+#include <math.h>
 
 using namespace std;
 
 int main() {
 
-    freopen("burst.txt", 'r', stdin);
+    // вводим данные для генерации, генерируем
+    // считываем xlabel, ylabel (из burst.txt)
+
+    // freopen("burst.txt", 'r', stdin); // has to be checked
 
     vector <double> arr_time;
     vector <double> arr_counts;
@@ -14,37 +18,63 @@ int main() {
     string s1, s2;
     cin >> s1 >> s2;
 
-    double x, y;
+    // arrays work correctly
 
-    while (cin >> x) {
-        cin >> x;
+    double x, y;
+    while (cin >> x && cin >> y) {
+		cin >> x;
+		arr_time.push_back(x);
+
         cin >> y;
-        arr_time.push_back(x);
         arr_counts.push_back(y);
     }
 
-    // определяем уровень фона
+    /*
+    while (cin >> x) {
+    	if (k % 2 == 0) {
+    		cin >> x;
+    		arr_time.push_back(x);
+    		k++;
+		}
+        else {
+	        cin >> x;
+	        arr_counts.push_back(x);
+	        k++;
+		}
+    }
+    */
+
+    /* for (int i = 0; i < 125; ++i) {
+    	cerr << arr_time[i] << "    " << arr_counts[i] << endl;
+	} */
+
+    // определяем уровень фона - OK
     double sum = 0;
+    int counter = 0;
     for (int i = 0; i <= 125; ++i) {
         sum += arr_counts[i];
-
+		counter++;
     }
-    double phase_zero = sum / (200 - 75 + 1);
+    double phase_zero = sum / counter;
+
+    cerr << phase_zero << endl;
 
 
-    /* Индексы:
+    /* индексы:
         -200 = 0
         labelx (-200) = index (0)
         index = labelx + 200
     */
 
-
+    // определяем уровень фона - ok
     double max_amplitude = phase_zero;
     for (int i = 0; i < 125; ++i) {
         if (arr_counts[i] > max_amplitude) {
             max_amplitude = arr_counts[i];
         }
     }
+
+    cout << max_amplitude << endl;
 
     // начало всплеска
 
@@ -58,14 +88,14 @@ int main() {
     // весь всплеск
 
     /* Считать, что на заданном временном интервале есть значимое превышение над фоном
-    если  (C_tot - C_bg) / sqrt(C_bg) > N, где 
-    C_tot - полное число отсчётов на выбранном интервале,
-    C_bg -  число отсчётов от фона на выбранном интервале,
-    N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
+если  (C_tot - C_bg) / sqrt(C_bg) > N, где
+C_tot - полное число отсчётов на выбранном интервале,
+C_bg -  число отсчётов от фона на выбранном интервале,
+N - значимость детектирования (взять N=5, в дальнейшем обсудим физический смысл этого значения). */
 
     int N = 5;
     double burst_end_time;
-    
+
     for (int i = 400; i >= burst_begin_time; --i) {
         int C_tot = i - burst_begin_time + 1;
 
@@ -78,6 +108,7 @@ int main() {
         }
     }
 
+	cerr << endl;
     cout << burst_begin_time << endl << burst_end_time << endl;
 
     return 0;
