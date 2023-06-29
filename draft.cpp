@@ -7,8 +7,8 @@ int main() {
     // вводим данные для генерации, генерируем
     // считываем xlabel, ylabel (из burst.txt)
 
-    vector <double> xlabel;
-    vector <double> ylabel;
+    vector <double> arr_time;
+    vector <double> arr_counts;
 
     string s1, s2;
     cin >> s1 >> s2;
@@ -18,8 +18,8 @@ int main() {
     while (cin >> x) {
         cin >> x;
         cin >> y;
-        xlabel.push_back(x);
-        ylabel.push_back(y);
+        arr_time.push_back(x);
+        arr_counts.push_back(y);
     }
 
     // определяем уровень фона
