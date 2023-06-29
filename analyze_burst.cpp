@@ -75,9 +75,9 @@ int main() {
 
     // начало всплеска
 
-    double burst_begin_time;
-    for (int i = 0; i < arr_counts.size() - 3; ++i) {
-        if (arr_counts[i] > med_amplitude && arr_counts[i+1] > med_amplitude && arr_counts[i+2] > med_amplitude && arr_counts[i+3] > med_amplitude) {
+    double burst_begin_time = -9797.97;
+    for (int i = 0; i < arr_counts.size() - 2; ++i) {
+        if (arr_counts[i] > med_amplitude && arr_counts[i+1] > med_amplitude && arr_counts[i+2] > med_amplitude) {
             burst_begin_time = arr_time[i];
         }
     }
