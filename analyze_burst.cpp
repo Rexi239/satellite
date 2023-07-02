@@ -6,12 +6,9 @@
 using namespace std;
 
 int main() {
-
     cout.precision(6);
 
-    // вводим данные для генерации, генерируем
-    // считываем xlabel, ylabel (из burst.txt)
-
+    // считываем arr_time, arr_counts (из burst.txt)
     // freopen("burst.txt", 'r', stdin); // has to be checked
 
     vector <double> arr_time;
