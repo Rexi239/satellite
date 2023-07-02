@@ -56,7 +56,7 @@ int main() {
     for (int i = 0; i < arr_counts.size(); ++i) {
         int C_tot = 0; // полное число отсчётов на выбранном интервале
 
-        for (j = i; j < arr_counts.size(); ++j) {
+        for (int j = i; j < arr_counts.size(); ++j) {
             k++;
 
             if (arr_counts[j] > phase_zero) {
