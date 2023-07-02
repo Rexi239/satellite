@@ -57,9 +57,8 @@ int main() {
         int C_tot = 0; // полное число отсчётов на выбранном интервале
 
         for (int j = i; j < arr_counts.size(); ++j) {
-            k++;
-
             if (arr_counts[j] > phase_zero) {
+                k++;
                 C_tot += arr_counts[j];
                 int C_bg = phase_zero * k; // число отсчётов от фона на выбранном интервале
                 double frac = (C_tot - C_bg) / sqrt(C_bg);
