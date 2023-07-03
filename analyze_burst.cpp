@@ -18,13 +18,12 @@ int main() {
     cin >> s1 >> s2;
 
     // input
-
-    double x;
-    int y;
-
     int cin_cnt = 400;
 
     while (cin_cnt >= 0) {
+        double x;
+        int y;
+
 		cin >> x;
 		arr_time.push_back(x);
 
@@ -39,7 +38,7 @@ int main() {
 	}
 	cerr << endl; */
 
-    // определяем уровень фона - OK
+    // определяем уровень фона
     double sum = 0;
     int counter = 0;
     for (int i = 0; i <= 125; ++i) {
@@ -55,13 +54,15 @@ int main() {
     double burst_end_time = 97.0; // конец всплеска
 
     int N = 5; // значимость детектирования
-    int k = 0; // "длина" интервала
 
     for (int i = 0; i < arr_counts.size(); ++i) {
+
+        int k = 0; // "длина" интервала
         int C_tot = 0; // полное число отсчётов на выбранном интервале
+        bool big_enough = true;
 
         for (int j = i; j < arr_counts.size(); ++j) {
-            if (arr_counts[j] > phase_zero) {
+            if (arr_counts[j] > phase_zero && big_enough) {
                 k++;
                 C_tot += arr_counts[j];
                 int C_bg = phase_zero * k; // число отсчётов от фона на выбранном интервале
@@ -73,8 +74,7 @@ int main() {
                 }
             }
             else {
-                C_tot = 0;
-                k = 0;
+                break;
             }
         }
     }
