@@ -17,20 +17,27 @@ int main() {
     string s1, s2;
     cin >> s1 >> s2;
 
-    // even input (!)
+    // input
 
-    double x, y;
-    while (cin >> x && cin >> y) {
+    double x;
+    int y;
+
+    int cin_cnt = 400;
+
+    while (cin_cnt >= 0) {
 		cin >> x;
 		arr_time.push_back(x);
 
         cin >> y;
         arr_counts.push_back(y);
+
+        cin_cnt--;
     }
 
     /* for (int i = 0; i < 125; ++i) {
     	cerr << arr_time[i] << "    " << arr_counts[i] << endl;
-	} */
+	}
+	cerr << endl; */
 
     // определяем уровень фона - OK
     double sum = 0;
