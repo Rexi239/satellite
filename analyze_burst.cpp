@@ -54,23 +54,26 @@ int main() {
     double burst_end_time = 97.0; // конец всплеска
 
     int N = 5; // значимость детектирования
+    bool borders_found = false;
 
     for (int i = 0; i < arr_counts.size(); ++i) {
 
-        int k = 0; // "длина" интервала
-        int C_tot = 0; // полное число отсчётов на выбранном интервале
-        bool big_enough = true;
+        if (borders_found) break;
+
+        int length = 0;
+        double C_tot = 0; // полное число отсчётов на выбранном интервале
 
         for (int j = i; j < arr_counts.size(); ++j) {
-            if (arr_counts[j] > phase_zero && big_enough) {
-                k++;
+            if (arr_counts[j] > phase_zero) {
+                length++;
                 C_tot += arr_counts[j];
-                int C_bg = phase_zero * k; // число отсчётов от фона на выбранном интервале
+                double C_bg = phase_zero * length; // число отсчётов от фона на выбранном интервале
                 double frac = (C_tot - C_bg) / sqrt(C_bg);
 
                 if (frac > N) {
                     burst_begin_time = arr_time[i];
                     burst_end_time = arr_time[j];
+                    borders_found = true;
                 }
             }
             else {
