@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <cstdio>
 #include <math.h>
+
+#include <fstream>
+// #include <cstdio>
 
 using namespace std;
 
@@ -14,24 +16,24 @@ int main() {
     vector <double> arr_time;
     vector <int> arr_counts;
 
-    string s1, s2;
-    cin >> s1 >> s2;
+    ifstream in ("burst.txt"); // окрываем файл для чтения
 
-    // input
-    int cin_cnt = 400;
+    if (in.is_open()) {
+        string s1, s2;
+        in >> s1 >> s2;
 
-    while (cin_cnt >= 0) {
         double x;
         int y;
+        int cin_cnt = 400;
 
-		cin >> x;
-		arr_time.push_back(x);
-
-        cin >> y;
-        arr_counts.push_back(y);
-
-        cin_cnt--;
+        while (cin_cnt >= 0) {
+                in >> x >> y;
+                arr_time.push_back(x);
+                arr_counts.push_back(y);
+                cin_cnt--;
+        }
     }
+    in.close();
 
     /* for (int i = 0; i < 125; ++i) {
     	cerr << arr_time[i] << "    " << arr_counts[i] << endl;
