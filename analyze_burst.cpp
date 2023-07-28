@@ -12,6 +12,7 @@ void read_data (
     vector <double> & arr_time,
     vector <int> & arr_counts
 ) {
+    cout.precision(6);
     ifstream in(file_name);
 
     if (!in.is_open()) {
@@ -19,19 +20,24 @@ void read_data (
         return;
     }
 
+    // читаем заголовок
     string s1, s2;
     in >> s1 >> s2;
 
     double x;
     int y;
-    int cin_cnt = 400;
 
-    while (cin_cnt >= 0) {
+    // читаем данные массивов
+    while (in.good()) {
         in >> x >> y;
         arr_time.push_back(x);
         arr_counts.push_back(y);
-        cin_cnt--;
     }
+
+    cout << "File " << file_name << " has been read" << "\n\n";
+    cout << "Total lines: " << arr_time.size() << '\n';
+    cout << "Start time: " << arr_time[0] << '\n';
+    cout << "End time: " << arr_time[arr_time.size()-1] << "\n\n";
 
     in.close();
 }
