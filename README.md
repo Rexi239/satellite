@@ -1,18 +1,57 @@
 # ReadMe
 
+## Поиск границ всплеска в сгенерированных данных
 **Задача**. Придумать алгоритм поиска начала всплеска в сгенерированных данных.
-Можно считать что на интервале [-200, -75] c всплеска нет и 
+В сгенерированных данных можно считать что на интервале [-200, -75] c всплеска нет и 
 можно использовать этот интервал для определения уровня фона.
 
-### ![generate_burst.py](https://github.com/Rexi239/satellite/blob/main/generate_burst.py) 
+### ![generate_burst.py](https://github.com/YepFun/satellite/blob/main/generate_burst.py) 
 В скрипте реализована генерация модельной кривой блеска гамма-всплеска 
 (отсчёты детектора в зависимости от времени).
 В результаты сохраняются в виде рисунка 'burst.png' и 
-выводятся в тестовый файл !['burst.txt'](https://github.com/Rexi239/satellite/blob/main/burst.txt).
+выводятся в тестовый файл !['burst.txt'](https://github.com/YepFun/satellite/blob/main/burst.txt).
 
 Пример графика 'burst.png':
 
-![burst.png](https://github.com/Rexi239/satellite/blob/main/burst.png)
+![burst.png](https://github.com/YepFun/satellite/blob/main/burst.png)
 
-### ![analyze_burst.cpp](https://github.com/Rexi239/satellite/blob/main/analyze_burst.cpp) 
+### ![analyze_burst_generated.cpp](https://github.com/YepFun/satellite/blob/main/analyze_burst_generated.cpp) 
 Реализована обработка сгенерированных данных, в частности, поиск границ всплеска.
+
+## Поиск границ всплеска в реальных данных
+
+**Задача**. 
+1. Для каждого всплеска каждом энергетическом канале, выделить интервал фона, на котором его можно считать постоянным.
+2. С использованием полученного фона, провести поиск начала и конца всплеска в данных.
+```
+Таблица  временных разрешений интервалов
+начало  длительность   временное
+разрешение
+с           с            мс
+-2           1             2  
+1          16             8
+17          32            32
+49          64            64
+```
+```
+Таблица границ энергетических диапазонов.
+
+Номер    Мин       Макс
+энергия   энергия
+кэВ       кэВ
+1          8        10
+2         10        16
+3         16        25
+4         25        40
+5         40        64
+6         64       100
+7        100       160
+8        160       250
+9        250       400
+10       400       640
+11       640      1000
+12      1000        --
+```
+
+### ![analyze_burst_generated.cpp](https://github.com/YepFun/satellite/blob/main/analyze_burst_real.cpp)
+Реализована обработка реальных данных, в частности, поиск первого превышения над фоном.
